@@ -33,8 +33,12 @@ const Posts = sequelize.define(
       allowNull: false,
       type: Sequelize.DATE,
     },
+    deletedAt:{
+      type: Sequelize.DATE
+    }
   },
   {
+    paranoid:true,
     modelName: "Posts",
     tableName: "Posts"
   }

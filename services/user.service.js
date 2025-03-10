@@ -11,7 +11,6 @@ exports.deleteUser = async (payload) => {
     return  await userRepository.softDelete({criteria :{ id: id },options:{ returning: true  }});
   };
   
-
   exports.updateUser = async (payload) => {
     const { id } = payload.user;
     const user = await userRepository.findOne({ id: id });

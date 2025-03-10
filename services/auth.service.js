@@ -1,5 +1,5 @@
-const { BadRequest, ForBidden, UnAuthorized } = require("../libs/errors");
-const {userRepository} = require("../repositories");
+const { BadRequest, ForBidden, UnAuthorized, NoContent } = require("../libs/errors");
+const {userRepository, imageRepository} = require("../repositories");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -14,13 +14,23 @@ exports.signUp = async (payload) => {
   if (await userRepository.findOne({ email: email })) {
     throw new ForBidden("User alredy exists");
   }
-  const response = await userRepository.create({
+ 
+  const user = await userRepository.create({
     name: name,
     email: email,
     password: password,
-    profile_picture:path ,
   });
-  return response;
+
+  if(!user){
+    throw new NoContent("User Doesnt Create ");
+  }
+
+  await imageRepository.create({
+    image_url:path,
+    user_id:user.id,
+  })
+
+  return user;
 };
 
 const generateToken = (id) => {
@@ -45,6 +55,11 @@ exports.signIn = async (payload) => {
   if (!validate) {
     throw new UnAuthorized("Unauthorised access Password not matched!");
   }
+
+  if (!user) {
+    throw new ForBidden("Need to register first");
+  }
+  const profileImage = await imageRepository.findOne({ user_id: user.id ,post_id:null });
    
-  return { token: generateToken(user.id), user: user };
+  return { token: generateToken(user.id), user: user  ,profileImage:profileImage };
 };

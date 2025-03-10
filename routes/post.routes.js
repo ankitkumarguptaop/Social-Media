@@ -1,12 +1,12 @@
 const express = require("express");
 const { postController } = require("../controllers");
-const {imageUpload ,authMiddleware} = require('../middlewares');
+const {imageUpload } = require('../middlewares');
 const router = express.Router();
 
-router.post("/", authMiddleware.jwtTokenValidation,imageUpload.uplaod().fields([{name:'postImage'}]), postController.createPost);
-router.get("/users", authMiddleware.jwtTokenValidation, postController.listUserPost);
-router.get("/", authMiddleware.jwtTokenValidation, postController.listPost);
-router.patch("/postId", authMiddleware.jwtTokenValidation, postController.updatePost);
-router.delete("/postId", authMiddleware.jwtTokenValidation, postController.deletePost);
+router.post("/",imageUpload.uplaod().fields([{name:'postImages'}]), postController.createPost);
+router.get("/users", postController.listUserPost);
+router.get("/", postController.listPost);
+router.patch("/postId", postController.updatePost);
+router.delete("/postId", postController.deletePost);
 
 module.exports = router;

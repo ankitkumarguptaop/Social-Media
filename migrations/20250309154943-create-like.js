@@ -18,6 +18,7 @@ module.exports = {
         },
       },
       post_id: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: "Posts",
@@ -38,8 +39,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      deletedAt: {
+        type: Sequelize.DATE
       }
-    });
+    },
+    {
+      paranoid: true,
+    }
+  );
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Likes');

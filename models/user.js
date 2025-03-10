@@ -3,6 +3,7 @@
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
 const { sequelize } = require("../configs/db");
+const Images = require("./image");
 
 const Users = sequelize.define(
   "Users",
@@ -26,7 +27,7 @@ const Users = sequelize.define(
     },
     email: {
       allowNull: false,
-      unique:true,
+      unique: true,
       type: Sequelize.STRING,
       validate: {
         isEmail: {
@@ -35,9 +36,7 @@ const Users = sequelize.define(
         },
       },
     },
-    profile_picture: {
-      type: Sequelize.STRING
-    },
+
     password: {
       allowNull: false,
       type: Sequelize.STRING,

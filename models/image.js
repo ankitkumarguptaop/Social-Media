@@ -3,6 +3,7 @@
 const { Sequelize } = require("sequelize");
 const { sequelize } = require("../configs/db");
 const Posts = require("./post");
+const Users = require("./user");
 
 const Images = sequelize.define(
   "Images",
@@ -15,13 +16,20 @@ const Images = sequelize.define(
     },
     image_url: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     post_id: {
-      allowNull: false,
       type: Sequelize.INTEGER,
       references: {
         model: "Posts",
+        key: "id",
+      },
+    },
+    user_id: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: "Users",
         key: "id",
       },
     },
@@ -36,22 +44,23 @@ const Images = sequelize.define(
   },
   {
     modelName: "Images",
-    tableName: "Images"
+    tableName: "Images",
   }
 );
 
-
 Images.belongsTo(Posts, {
-  as:"post",
+  as: "post",
   foreignKey: "post_id",
 });
 
 Posts.hasMany(Images, {
-  as:"images",
+  as: "images",
   foreignKey: "post_id",
 });
 
-
-
+Images.belongsTo(Users, {
+  as: "user",
+  foreignKey: "user_id",
+});
 
 module.exports = Images;

@@ -24,6 +24,7 @@ const Likes = sequelize.define(
       },
     },
     post_id: {
+      allowNull: false,
       type: Sequelize.INTEGER,
       references: {
         model: "Posts",
@@ -45,13 +46,16 @@ const Likes = sequelize.define(
       allowNull: false,
       type: Sequelize.DATE,
     },
+    deletedAt: {
+      type: Sequelize.DATE,
+    },
   },
   {
+    paranoid: true,
     modelName: "Likes",
-    tableName: "Likes"
+    tableName: "Likes",
   }
 );
-
 
 Likes.belongsTo(Users, {
   as: "user",
@@ -73,8 +77,6 @@ Posts.hasMany(Likes, {
   foreignKey: "post_id",
 });
 
-
-
 Likes.belongsTo(Comments, {
   as: "comment",
   foreignKey: "comment_id",
@@ -84,6 +86,5 @@ Comments.hasMany(Likes, {
   as: "likes",
   foreignKey: "comment_id",
 });
-
 
 module.exports = Likes;

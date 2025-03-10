@@ -3,8 +3,9 @@
 const { Sequelize } = require("sequelize");
 const { sequelize } = require("../configs/db");
 const Posts = require("./post");
+const Users = require("./user");
 
-const  Comments= sequelize.define(
+const Comments = sequelize.define(
   "Comments",
   {
     id: {
@@ -14,12 +15,20 @@ const  Comments= sequelize.define(
       type: Sequelize.INTEGER,
     },
     content: {
-      type: Sequelize.STRING
+      allowNull: false,
+      type: Sequelize.STRING,
     },
     post_id: {
       type: Sequelize.INTEGER,
       references: {
         model: "Posts",
+        key: "id",
+      },
+    },
+    user_id: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: "Users",
         key: "id",
       },
     },
@@ -41,29 +50,33 @@ const  Comments= sequelize.define(
   },
   {
     modelName: "Comments",
-    tableName: "Comments"
+    tableName: "Comments",
   }
 );
 
-
-
-
 Comments.belongsTo(Posts, {
-  as:"post",
+  as: "post",
   foreignKey: "post_id",
 });
 
 Posts.hasMany(Comments, {
-  as:"comments",
+  as: "comments",
   foreignKey: "post_id",
 });
 
-
-Comments.belongsTo(Comments, {
-  as:"parent_comment",
-  foreignKey: "parent_comment_id",
+Comments.belongsTo(Users, {
+  as: "user",
+  foreignKey: "user_id",
 });
 
+Users.hasMany(Comments, {
+  as: "comments",
+  foreignKey: "user_id",
+});
 
+Comments.belongsTo(Comments, {
+  as: "parent_comment",
+  foreignKey: "parent_comment_id",
+});
 
 module.exports = Comments;
