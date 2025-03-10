@@ -9,12 +9,11 @@ const {
   userRepository,
   imageRepository,
 } = require("../repositories");
-const jwt = require("jsonwebtoken");
 
 exports.createPost = async (payload) => {
   const { caption } = payload.body;
   const { id } = payload.user;
-  const { postImages } = payload.files;
+  const { postImages } = payload?.files;
 
   if (!caption || !postImages) {
     throw new BadRequest("caption and post image is not given");

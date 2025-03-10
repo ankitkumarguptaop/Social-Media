@@ -4,7 +4,6 @@ const { userRepository } = require("../repositories");
 const { UnAuthorized } = require("../libs/errors");
 
 exports.jwtTokenValidation = async (req, res, next) => {
-
   try {
   let token = req?.cookies?.jwt;
     if (token) {

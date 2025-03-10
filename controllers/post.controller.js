@@ -4,6 +4,7 @@ const { INTERNAL_SERVER_ERROR, OK } = require("../libs/constants");
 const {postService}  =require("../services")
 
 exports.createPost = async (req, res) => {
+  console.log(req.files)
     try {
       const response = await postService.createPost({
         body:req.body,
