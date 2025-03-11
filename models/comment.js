@@ -75,7 +75,12 @@ Users.hasMany(Comments, {
 });
 
 Comments.belongsTo(Comments, {
-  as: "parent_comment",
+  as: "comment",
+  foreignKey: "parent_comment_id",
+});
+
+Comments.hasMany(Comments, {
+  as: "comments",
   foreignKey: "parent_comment_id",
 });
 

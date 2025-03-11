@@ -2,12 +2,11 @@ const { INTERNAL_SERVER_ERROR, OK } = require("../libs/constants");
 const { commentService } = require("../services");
 
 exports.addComment = async (req, res) => {
-  
   try {
     const response = await commentService.addComment({
       body: req.body,
       params: req.params,
-      query:req.query,
+      query: req.query,
       user: req.user,
     });
     res

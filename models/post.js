@@ -15,7 +15,7 @@ const Posts = sequelize.define(
     },
     caption: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     user_id: {
       allowNull: false,
@@ -33,26 +33,25 @@ const Posts = sequelize.define(
       allowNull: false,
       type: Sequelize.DATE,
     },
-    deletedAt:{
-      type: Sequelize.DATE
-    }
+    deletedAt: {
+      type: Sequelize.DATE,
+    },
   },
   {
-    paranoid:true,
+    paranoid: true,
     modelName: "Posts",
-    tableName: "Posts"
+    tableName: "Posts",
   }
 );
 
 Posts.belongsTo(Users, {
-  as:"user",
+  as: "user",
   foreignKey: "user_id",
 });
 
 Users.hasMany(Posts, {
-  as:"posts",
+  as: "posts",
   foreignKey: "user_id",
 });
-
 
 module.exports = Posts;

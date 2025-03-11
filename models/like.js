@@ -24,7 +24,6 @@ const Likes = sequelize.define(
       },
     },
     post_id: {
-      allowNull: false,
       type: Sequelize.INTEGER,
       references: {
         model: "Posts",

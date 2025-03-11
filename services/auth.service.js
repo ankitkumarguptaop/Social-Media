@@ -24,7 +24,7 @@ exports.signUp = async (payload) => {
   if(!user){
     throw new NoContent("User Doesnt Create ");
   }
-
+  
   await imageRepository.create({
     image_url:path,
     user_id:user.id,

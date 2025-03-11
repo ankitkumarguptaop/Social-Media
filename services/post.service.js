@@ -26,7 +26,7 @@ exports.createPost = async (payload) => {
   }
 
   const images = postImages.map((image) => {
-    return { image_url: image.path, post_id: post.id  ,user_id:id};
+    return { image_url: image.path, post_id: post.id, user_id: id };
   });
 
   const postImagesCreated = await imageRepository.createBulk(images);
@@ -37,8 +37,15 @@ exports.createPost = async (payload) => {
 };
 
 exports.listPost = async (payload) => {
-  const posts = await postRepository.findAll({
-    include: ["images", "likes", "comments"],
+  const { page = 1, limit = 5 } = payload.query;
+  let offset = 0;
+  if (page && limit) {
+    offset = limit * (page - 1);
+  }
+  const posts = await postRepository.findAndCountAll({
+    include: ["images", "likes", "comments" ,"user" ],
+    offset: offset,
+    limit: limit,
   });
   if (!posts) {
     throw new NoContent("Posts not found");
@@ -48,9 +55,16 @@ exports.listPost = async (payload) => {
 
 exports.listUserPost = async (payload) => {
   const { id } = payload.user;
+  const { page = 1, limit = 5 } = payload.query;
+  let offset = 0;
+  if (page && limit) {
+    offset = limit * (page - 1);
+  }
   const posts = await postRepository.findAll({
     criteria: { user_id: id },
-    include: ["images", "likes", "comments" ],
+    include: ["images", "likes", "comments" ,'user_id'],
+    offset: offset,
+    limit: limit,
   });
   if (!posts) {
     throw new NoContent("Posts not found");

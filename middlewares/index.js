@@ -1,4 +1,4 @@
 module.exports = {
-    authMiddleware: require("./auth.middleware"),
-    imageUpload: require("./image-upload-middleware"),
-  };
+  authMiddleware: require("./auth.middleware"),
+  imageUpload: require("./image-upload-middleware"),
+};
