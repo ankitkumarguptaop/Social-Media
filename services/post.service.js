@@ -43,14 +43,16 @@ exports.listPost = async (payload) => {
     offset = limit * (page - 1);
   }
   const posts = await postRepository.findAndCountAll({
-    include: ["images", "likes", "comments" ,"user" ],
+    include: ["images", "comments" ,"user" ],
     offset: offset,
     limit: limit,
+  
   });
   if (!posts) {
     throw new NoContent("Posts not found");
   }
-  return posts;
+  const count = await postRepository.count({})
+  return {...posts, count: count};
 };
 
 exports.listUserPost = async (payload) => {
@@ -62,13 +64,14 @@ exports.listUserPost = async (payload) => {
   }
   const posts = await postRepository.findAll({
     criteria: { user_id: id },
-    include: ["images", "likes", "comments" ,'user_id'],
+    include: ["images", "comments" ,'user_id'],
     offset: offset,
     limit: limit,
   });
   if (!posts) {
     throw new NoContent("Posts not found");
   }
+  const count = await postRepository.count()
   return posts;
 };
 

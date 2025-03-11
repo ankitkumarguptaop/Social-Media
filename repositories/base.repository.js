@@ -1,3 +1,5 @@
+const { where } = require("sequelize");
+
 class BaseRepository {
   constructor({ model }) {
     this.model = model;
@@ -42,6 +44,7 @@ class BaseRepository {
     });
   }
 
+
   async findOne(criteria, include = [], attributes = {}, options = {}) {
     return await this.model.findOne({
       where: criteria,
@@ -53,6 +56,10 @@ class BaseRepository {
 
   async createBulk(payload, options) {
     return await this.model.bulkCreate(payload, options);
+  }
+
+  async count({criteria={}, options = {}}) {
+    return await this.model.count({where: criteria, ...options});
   }
   async softDelete({ criteria, options = null }) {
     const response = await this.model.destroy({ where: criteria }, options);
