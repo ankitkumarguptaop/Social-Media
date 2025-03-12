@@ -1,7 +1,7 @@
 const { INTERNAL_SERVER_ERROR, OK } = require("../libs/constants");
 const { userService } = require("../services");
 
-exports.updateUser = async (req, res) => {
+exports.updateUser = async (req, res, next) => {
   try {
     const response = await userService.updateUser({
       body: req.body,
@@ -12,13 +12,11 @@ exports.updateUser = async (req, res) => {
       .json({ message: "successfuly updated user", user: response });
   } catch (error) {
     console.log("Failed to update user", error.message);
-    res
-      .status(error.statusCode || INTERNAL_SERVER_ERROR)
-      .json({ error: error.message });
+    return next(error);
   }
 };
 
-exports.deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res, next) => {
   try {
     const response = await userService.deleteUser({
       user: req.user,
@@ -28,8 +26,6 @@ exports.deleteUser = async (req, res) => {
       .json({ message: "successfuly deleted user", user: response });
   } catch (error) {
     console.log("Failed to delete user", error.message);
-    res
-      .status(error.statusCode || INTERNAL_SERVER_ERROR)
-      .json({ error: error.message });
+    return next(error);
   }
 };

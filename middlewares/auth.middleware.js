@@ -15,6 +15,6 @@ exports.jwtTokenValidation = async (req, res, next) => {
       throw new UnAuthorized("No Token");
     }
   } catch (error) {
-    throw new UnAuthorized("Not authorized");
+     return next(error)
   }
 };

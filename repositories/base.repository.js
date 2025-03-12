@@ -44,7 +44,6 @@ class BaseRepository {
     });
   }
 
-
   async findOne(criteria, include = [], attributes = {}, options = {}) {
     return await this.model.findOne({
       where: criteria,
@@ -58,8 +57,8 @@ class BaseRepository {
     return await this.model.bulkCreate(payload, options);
   }
 
-  async count({criteria={}, options = {}}) {
-    return await this.model.count({where: criteria, ...options});
+  async count({ criteria = {}, options = {} }) {
+    return await this.model.count({ where: criteria, ...options });
   }
   async softDelete({ criteria, options = null }) {
     const response = await this.model.destroy({ where: criteria }, options);

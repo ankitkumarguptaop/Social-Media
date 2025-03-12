@@ -12,9 +12,7 @@ exports.signUp = async (req, res) => {
       .json({ message: "successfuly created user", user: response });
   } catch (error) {
     console.log("Failed to create user", error.message);
-    res
-      .status(error.statusCode || INTERNAL_SERVER_ERROR)
-      .json({ error: error.message });
+    return next(error);
   }
 };
 
@@ -35,8 +33,6 @@ exports.signIn = async (req, res) => {
       .json({ message: "successfuly Singin user", user: response });
   } catch (error) {
     console.log("Failed to Singin user", error.message);
-    res
-      .status(error.statusCode || INTERNAL_SERVER_ERROR)
-      .json({ error: error.message });
+    return next(error);
   }
 };

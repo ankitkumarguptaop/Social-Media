@@ -16,6 +16,7 @@ const Posts = sequelize.define(
     caption: {
       allowNull: false,
       type: Sequelize.STRING,
+      require:true
     },
     user_id: {
       allowNull: false,

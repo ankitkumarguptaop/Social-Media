@@ -19,7 +19,7 @@ const Users = sequelize.define(
       type: Sequelize.STRING,
       validate: {
         len: {
-          args: [1, 30],
+          args: [3, 30],
           msg: "name length should lies between 1 to 30",
         },
       },

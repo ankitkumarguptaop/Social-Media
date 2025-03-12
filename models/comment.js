@@ -17,6 +17,7 @@ const Comments = sequelize.define(
     content: {
       allowNull: false,
       type: Sequelize.STRING,
+      require: true,
     },
     post_id: {
       type: Sequelize.INTEGER,
@@ -26,6 +27,7 @@ const Comments = sequelize.define(
       },
     },
     user_id: {
+      allowNull: false,
       type: Sequelize.INTEGER,
       references: {
         model: "Users",
