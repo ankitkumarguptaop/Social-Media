@@ -28,6 +28,7 @@ app.use("/uploads", express.static("uploads")); // for read static files
 app.use("/", require("./routes"));
 app.use(errorHandler);
 
+
 const APP_PORT = process.env.APP_PORT || 8080;
 
 app.listen(APP_PORT, () => {

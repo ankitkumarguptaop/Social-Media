@@ -63,4 +63,9 @@ Images.belongsTo(Users, {
   foreignKey: "user_id",
 });
 
+Users.hasMany(Images,{
+  as: "images",
+  foreignKey: "user_id"
+})
+
 module.exports = Images;

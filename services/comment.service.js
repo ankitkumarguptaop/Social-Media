@@ -1,9 +1,12 @@
+const { where } = require("sequelize");
 const {
   ForBidden,
   UnAuthorized,
   NoContent,
   BadRequest,
 } = require("../libs/errors");
+const Images = require("../models/image");
+const Users = require("../models/user");
 const { commentRepository } = require("../repositories");
 
 exports.addCommentOnPost = async (payload) => {
@@ -25,7 +28,8 @@ exports.addCommentOnPost = async (payload) => {
   if (!response) {
     throw new NoContent("Comment not created");
   }
-  return response;
+
+  return response ;
 };
 
 exports.addCommentOnComment = async (payload) => {
@@ -89,7 +93,17 @@ exports.listPostComment = async (payload) => {
   }
   const posts = await commentRepository.findAndCountAll({
     criteria: { post_id: postId },
-    include: ["user"],
+    include: [{
+      model: Users,
+      as: "user",
+      include: [{
+        model: Images,
+        as: "images",
+        where:{
+          post_id: null
+        }
+      }]
+    }],
     offset: offset,
     limit: limit,
   });
@@ -109,7 +123,7 @@ exports.listCommentComment = async (payload) => {
   }
   const posts = await commentRepository.findAndCountAll({
     criteria: { id: commentId },
-    include: ["user" ,'comments'],
+    include: ["user", "comments"],
     offset: offset,
     limit: limit,
   });
