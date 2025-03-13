@@ -77,7 +77,7 @@ exports.listCommentComment = async (req, res, next) => {
     });
     res
       .status(OK)
-      .json({ message: "successfuly list comment", comment: response });
+      .json({ message: "successfuly list comment comment", comment: response });
   } catch (error) {
     console.log("Failed to list comment", error.message);
     return next(error);

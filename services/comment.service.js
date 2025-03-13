@@ -122,8 +122,18 @@ exports.listCommentComment = async (payload) => {
     offset = limit * (page - 1);
   }
   const posts = await commentRepository.findAndCountAll({
-    criteria: { id: commentId },
-    include: ["user", "comments"],
+    criteria: { parent_comment_id: commentId },
+    include: ["user", "comments" ,{
+      model: Users,
+      as: "user",
+      include: [{
+        model: Images,
+        as: "images",
+        where:{
+          post_id: null
+        }
+      }]
+    }],
     offset: offset,
     limit: limit,
   });

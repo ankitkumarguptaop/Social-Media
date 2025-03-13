@@ -3,7 +3,7 @@ const { likeController } = require("../controllers");
 const router = express.Router();
 
 router.get("/posts/:postId", likeController.listPostLike);
-router.get("/comment/:commentId", likeController.listCommentLike);
+router.get("/comments/:commentId", likeController.listCommentLike);
 router.post("/posts/:postId", likeController.addLikeOnPost);
 router.post("/comments/:commentId", likeController.addLikeOnComment);
 router.delete("/posts/:postId", likeController.removePostLike);

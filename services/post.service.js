@@ -4,6 +4,8 @@ const {
   UnAuthorized,
   NoContent,
 } = require("../libs/errors");
+const Images = require("../models/image");
+const Users = require("../models/user");
 const {
   postRepository,
   userRepository,
@@ -43,7 +45,17 @@ exports.listPost = async (payload) => {
     offset = limit * (page - 1);
   }
   const posts = await postRepository.findAndCountAll({
-    include: ["images", "comments", "user"],
+    include: ["images", "comments", "user" ,{
+      model: Users,
+      as: "user",
+      include: [{
+        model: Images,
+        as: "images",
+        where:{
+          post_id: null
+        }
+      }]
+    }],
     offset: offset,
     limit: limit,
   });

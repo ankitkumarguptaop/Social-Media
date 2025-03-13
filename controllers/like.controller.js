@@ -12,7 +12,7 @@ exports.addLikeOnComment = async (req, res, next) => {
     });
     res.status(OK).json({ message: "successfuly liked ", like: response });
   } catch (error) {
-    console.log("Failed to liked ", error.message);
+    console.log("Failed to liked ", error);
     return next(error);
   }
 };

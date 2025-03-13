@@ -1,7 +1,7 @@
 const { INTERNAL_SERVER_ERROR, OK } = require("../libs/constants");
 const { authService } = require("../services");
 
-exports.signUp = async (req, res) => {
+exports.signUp = async (req, res ,next) => {
   try {
     const response = await authService.signUp({
       body: req.body,
@@ -16,7 +16,7 @@ exports.signUp = async (req, res) => {
   }
 };
 
-exports.signIn = async (req, res) => {
+exports.signIn = async (req, res,next) => {
   try {
     const response = await authService.signIn({
       body: req.body,
