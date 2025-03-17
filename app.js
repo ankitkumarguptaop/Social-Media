@@ -52,7 +52,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message-sender", ({ room, message }) => {
-    socket.to(room).emit("message-reciever", message);
+    console.log("message-sender", room, message);
+    io.in(room).emit("message-reciever", message); //for all members 
   });
 
  
