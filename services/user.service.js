@@ -1,4 +1,4 @@
-const { BadRequest, ForBidden, UnAuthorized } = require("../libs/errors");
+const { ForBidden } = require("../libs/errors");
 const { userRepository } = require("../repositories");
 
 exports.deleteUser = async (payload) => {
@@ -26,3 +26,4 @@ exports.updateUser = async (payload) => {
     options: { returning: true },
   });
 };
+

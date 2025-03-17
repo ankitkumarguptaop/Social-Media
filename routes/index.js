@@ -8,6 +8,7 @@ router.use(
   authMiddleware.jwtTokenValidation,
   require("./user.routes")
 );
+
 router.use(
   "/posts",
   authMiddleware.jwtTokenValidation,
@@ -23,5 +24,18 @@ router.use(
   authMiddleware.jwtTokenValidation,
   require("./comment.routes")
 );
+
+router.use(
+  "/chats",
+  authMiddleware.jwtTokenValidation,
+  require("./chat.routes")
+);
+
+router.use(
+  "/messages",
+  authMiddleware.jwtTokenValidation,
+  require("./message.routes")
+);
+
 
 module.exports = router;

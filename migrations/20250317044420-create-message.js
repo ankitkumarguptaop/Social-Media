@@ -1,21 +1,14 @@
-"use strict";
+'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Images", {
+    await queryInterface.createTable('Messages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
-      post_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Posts",
-          key: "id",
-        },
-      },
-      user_id: {
+      sender_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -23,21 +16,33 @@ module.exports = {
           key: "id",
         },
       },
-      image_url: {
+   
+      room_id: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Chats",
+          key: "id",
+        },
+      },
+      message: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE
+      },
+      deletedAt: {
         type: Sequelize.DATE,
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Images");
-  },
+    await queryInterface.dropTable('Messages');
+  }
 };

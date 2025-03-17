@@ -1,5 +1,3 @@
-const { where } = require("sequelize");
-
 class BaseRepository {
   constructor({ model }) {
     this.model = model;

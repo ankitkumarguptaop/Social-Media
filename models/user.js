@@ -3,7 +3,6 @@
 const { Sequelize } = require("sequelize");
 const bcrypt = require("bcrypt");
 const { sequelize } = require("../configs/db");
-const Images = require("./image");
 
 const Users = sequelize.define(
   "Users",

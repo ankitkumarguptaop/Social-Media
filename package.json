@@ -35,6 +35,7 @@
     "pg": "^8.13.3",
     "pg-hstore": "^2.3.4",
     "react-infinite-scroll-component": "^6.1.0",
-    "sequelize": "^6.37.6"
+    "sequelize": "^6.37.6",
+    "socket.io": "^4.8.1"
   }
 }

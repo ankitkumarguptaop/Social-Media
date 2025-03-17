@@ -4,4 +4,6 @@ module.exports = {
     postService: require("./post.service"), 
     likeService: require("./like.service"),
     commentService: require("./comment.service"),
+    chatService: require("./chat.service"),
+    messageService: require("./message.service")
 }
