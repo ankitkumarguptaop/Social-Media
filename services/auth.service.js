@@ -48,7 +48,7 @@ exports.signIn = async (payload) => {
 
   const user = await userRepository.findOne({ email: email });
   if (!user) {
-    throw new ForBidden("Need to register first");
+    throw new UnAuthorized("Need to register first");
   }
   const validate = await bcrypt.compare(password, user.password);
 
@@ -56,9 +56,6 @@ exports.signIn = async (payload) => {
     throw new UnAuthorized("Unauthorised access Password not matched!");
   }
 
-  if (!user) {
-    throw new ForBidden("Need to register first");
-  }
   const profileImage = await imageRepository.findOne({ user_id: user.id ,post_id:null });
    
   return { token: generateToken(user.id), user: user  ,profileImage:profileImage };

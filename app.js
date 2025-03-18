@@ -27,6 +27,7 @@ app.use(
   })
 );
 
+
 const bodyParser = require("body-parser");
 const { errorHandler } = require("./middlewares/error-handler.middleware");
 app.use(bodyParser.json());
@@ -45,15 +46,17 @@ io.on("connection", (socket) => {
     console.log("ping");
     cb();
   });
-
+  
   socket.on("join-chats", (roomIds) => {
+    console.log("sdnsajnd0",socket.id)
+    console.log("sdandsj ashw3e",socket.rooms)
     socket.join(roomIds);
     console.log("joined chats room :", socket.id, roomIds);
   });
 
   socket.on("message-sender", ({ room, message }) => {
     console.log("message-sender", room, message);
-    io.in(room).emit("message-reciever", message); //for all members 
+    io.to(room).emit("message-reciever", message); //for all members 
   });
 
  

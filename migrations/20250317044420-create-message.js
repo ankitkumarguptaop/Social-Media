@@ -16,7 +16,6 @@ module.exports = {
           key: "id",
         },
       },
-   
       room_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -27,7 +26,8 @@ module.exports = {
       },
       message: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.TEXT,
+    
       },
       createdAt: {
         allowNull: false,
